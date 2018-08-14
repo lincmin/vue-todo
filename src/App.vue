@@ -34,18 +34,17 @@ export default {
     return {
       title: 'vue-todo',
       newTodo: '',
-      todos: [
-        {
-          value: 'todo 1',
-          done: false,
-          created: Date.now()
-        },
-        {
-          value: 'todo 2',
-          done: true,
-          created: Date.now()
-        }
-      ]
+      todos: []
+    }
+  },
+  created() {
+    if (this.is_initialized) {
+      this.todos = JSON.parse(localStorage.getItem('VUE-TODO'))
+    }
+  },
+  computed: {
+    is_initialized() {
+      return localStorage.getItem('VUE-TODO') != null
     }
   },
   filters: {
