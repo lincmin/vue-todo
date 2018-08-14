@@ -6,7 +6,7 @@
           :class="{'checked':todo.done}"
           :key="index">
         <label for="">{{index+1}}.{{todo.value}}</label>
-        <time>{{todo.created}}</time>
+        <time>{{todo.created | date}}</time>
       </li>
     </ul>
   </div>
@@ -15,6 +15,9 @@
 <script>
 import './assets/todo.less'
 import './assets/site.less'
+import moment from 'moment'
+import 'moment/locale/zh-cn'
+moment.locale('zh-cn')
 export default {
   name: 'app',
   data() {
@@ -32,6 +35,11 @@ export default {
           created: Date.now()
         }
       ]
+    }
+  },
+  filters: {
+    date(val) {
+      return moment(val).calendar()
     }
   }
 }
