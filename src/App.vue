@@ -11,6 +11,9 @@
       <li v-for="(todo,index) in todos"
           :class="{'checked':todo.done}"
           :key="index">
+        <input type="checkbox"
+               @change="saveToStore"
+               v-model="todo.done">
         <label for="">{{index+1}}.{{todo.value}}</label>
         <time>{{todo.created | date}}</time>
       </li>
@@ -56,6 +59,9 @@ export default {
         created: Date.now(),
         done: false
       })
+    },
+    saveToStore() {
+      localStorage.setItem('VUE-TODO', JSON.stringify(this.todos))
     }
   }
 }
