@@ -2,6 +2,12 @@
   <div id="app">
     <h1>{{title}}</h1>
     <ul class="todos">
+      <li>
+        <input v-model="newTodo"
+               @keyup.13="addItem"
+               placeholder="输入新增事项"
+               autofocus="true">
+      </li>
       <li v-for="(todo,index) in todos"
           :class="{'checked':todo.done}"
           :key="index">
@@ -23,6 +29,7 @@ export default {
   data() {
     return {
       title: 'vue-todo',
+      newTodo: '',
       todos: [
         {
           value: 'todo 1',
@@ -40,6 +47,15 @@ export default {
   filters: {
     date(val) {
       return moment(val).calendar()
+    }
+  },
+  methods: {
+    addItem() {
+      this.todos.push({
+        value: this.newTodo,
+        created: Date.now(),
+        done: false
+      })
     }
   }
 }
