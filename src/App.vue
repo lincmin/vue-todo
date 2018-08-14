@@ -16,6 +16,7 @@
                v-model="todo.done">
         <label for="">{{index+1}}.{{todo.value}}</label>
         <time>{{todo.created | date}}</time>
+        <button @click.prevent="delItem(todo)"></button>
       </li>
     </ul>
   </div>
@@ -59,6 +60,11 @@ export default {
         created: Date.now(),
         done: false
       })
+      this.saveToStore()
+    },
+    delItem(todo) {
+      this.todos = this.todos.filter((x) => x !== todo)
+      this.saveToStore()
     },
     saveToStore() {
       localStorage.setItem('VUE-TODO', JSON.stringify(this.todos))
